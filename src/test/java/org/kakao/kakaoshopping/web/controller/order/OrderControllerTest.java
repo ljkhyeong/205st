@@ -171,9 +171,10 @@ class OrderControllerTest {
 		List orderItems = List.of(item1, item2);
 
 		createOrder = CreateOrder.builder()
+			.orderItems(orderItems)
 			.build();
 
-		return orderService.creatOrder(createOrder.toEntity(), orderItems, 1L);
+		return orderService.creatOrder(createOrder.toEntity(),1L);
 	}
 
 }
