@@ -28,7 +28,7 @@ public class OrderController {
 	@PostMapping("/order/create")
 	public String createOrder(CreateOrder createOrder, @LoginMember LoggedInMember loggedInMember,
 		RedirectAttributes rttr) {
-		Long saveOrderId = orderService.creatOrder(createOrder.toEntity());
+		Long saveOrderId = orderService.creatOrder(createOrder.toEntity(), loggedInMember.getMemberId());
 
 		rttr.addFlashAttribute("orderId", saveOrderId);
 
@@ -41,7 +41,7 @@ public class OrderController {
 
 		model.addAttribute("order", new OrderSimpleView(order));
 
-		return "orderView";
+		return "order/orderView";
 	}
 
 	@GetMapping("/orders")
@@ -54,7 +54,7 @@ public class OrderController {
 
 		model.addAttribute("orders", orderViews);
 
-		return "orderViews";
+		return "order/orderViews";
 	}
 
 	@PostMapping("/order/edit")
@@ -68,7 +68,7 @@ public class OrderController {
 
 	@GetMapping("/order/delete")
 	public String deleteOrder(@LoginMember LoggedInMember loggedInMember, Long orderId) {
-		orderService.deleteUser(orderId);
+		orderService.deleteOrder(orderId);
 
 		return "redirect:/order/orders";
 	}
