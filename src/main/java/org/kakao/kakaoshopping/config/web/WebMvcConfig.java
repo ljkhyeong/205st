@@ -2,7 +2,7 @@ package org.kakao.kakaoshopping.config.web;
 
 import java.util.List;
 
-import org.kakao.kakaoshopping.web.argumentResolver.LoginUserArgumentResolver;
+import org.kakao.kakaoshopping.web.argumentResolver.LoginMemberArgumentResolver;
 import org.kakao.kakaoshopping.web.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -14,7 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(new LoginUserArgumentResolver());
+		resolvers.add(new LoginMemberArgumentResolver());
 	}
 
 	@Override
