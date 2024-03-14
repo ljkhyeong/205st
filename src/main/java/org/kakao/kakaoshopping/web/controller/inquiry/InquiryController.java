@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kakao.kakaoshopping.domain.entity.inquiry.Inquiry;
 import org.kakao.kakaoshopping.domain.service.inquiry.InquiryService;
-import org.kakao.kakaoshopping.web.annotaion.LoginUser;
+import org.kakao.kakaoshopping.web.annotaion.LoginMember;
 import org.kakao.kakaoshopping.web.common.paging.request.InquirySearchCondition;
 import org.kakao.kakaoshopping.web.dto.inquiry.request.CreateInquiry;
 import org.kakao.kakaoshopping.web.dto.inquiry.request.EditInquiry;
@@ -35,7 +35,7 @@ public class InquiryController {
 	 * @return
 	 */
 	@GetMapping("/inquiries")
-	public String findInquiries(@LoginUser LoggedInUser loggedInUser, InquirySearchCondition condition, Model model) {
+	public String findInquiries(@LoginMember LoggedInUser loggedInUser, InquirySearchCondition condition, Model model) {
 		// 페이지 인터페이스를 통해 페이징처리된 문의게시글 리스트를 가져온다.
 		Page<Inquiry> Inquiries = inquiryService.findInquiries(condition);
 		// 문의 게시글을 리스트로 가져와서 리스트로 만듬.
@@ -58,7 +58,7 @@ public class InquiryController {
 	 * @return
 	 */
 	@GetMapping("/inquiry/create")
-	public String createInquiryForm(@LoginUser LoggedInUser loggedInUser, Long itemId, Model model) {
+	public String createInquiryForm(@LoginMember LoggedInUser loggedInUser, Long itemId, Model model) {
 
 		model.addAttribute("userId", loggedInUser.getUserId());
 		model.addAttribute("itemId", itemId);
@@ -77,7 +77,7 @@ public class InquiryController {
 	 * @return
 	 */
 	@PostMapping("/inquiry/create")
-	public String createInquiry(CreateInquiry createInquiry, @LoginUser LoggedInUser loginUser) {
+	public String createInquiry(CreateInquiry createInquiry, @LoginMember LoggedInUser loginUser) {
 		// 게시판 글을 생성하나고 리스트로 리다이렉트.
 		Long saveInquiryId = inquiryService.createInquiry(createInquiry.toEntity(), loginUser.getUserId());
 

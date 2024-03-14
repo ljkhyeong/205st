@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.kakao.kakaoshopping.api.common.result.ListResult;
 import org.kakao.kakaoshopping.domain.entity.item.Item;
 import org.kakao.kakaoshopping.domain.service.item.ItemService;
-import org.kakao.kakaoshopping.web.annotaion.LoginUser;
+import org.kakao.kakaoshopping.web.annotaion.LoginMember;
 import org.kakao.kakaoshopping.web.common.paging.request.ItemSearchCondition;
 import org.kakao.kakaoshopping.web.dto.item.request.CreateItem;
 import org.kakao.kakaoshopping.web.dto.item.request.EditItem;
@@ -72,7 +72,7 @@ public class ItemController {
      * @return String
      */
     @GetMapping("/item")
-    public String viewItem(Model model, ReadItem readItem, @LoginUser LoggedInUser loggedInUser) {
+    public String viewItem(Model model, ReadItem readItem, @LoginMember LoggedInUser loggedInUser) {
         Item item = itemService.getItemComplex(readItem.getItemId());
         ItemComplexView itemComplexView = new ItemComplexView(item);
         model.addAttribute("item", itemComplexView);
@@ -94,7 +94,7 @@ public class ItemController {
      * @return String
      */
     @PostMapping("/seller/createItem")
-    public String createItem(CreateItem createItemDTO, @LoginUser LoggedInUser loggedInUser) {
+    public String createItem(CreateItem createItemDTO, @LoginMember LoggedInUser loggedInUser) {
         Long id = itemService.createItem(createItemDTO.toEntity(), loggedInUser.getUserId());
         return "redirect:/item?itemId=" + id;
     }

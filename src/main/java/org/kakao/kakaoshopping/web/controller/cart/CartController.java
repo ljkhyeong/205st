@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.kakao.kakaoshopping.domain.entity.cart.Cart;
 import org.kakao.kakaoshopping.domain.service.cart.CartService;
-import org.kakao.kakaoshopping.web.annotaion.LoginUser;
+import org.kakao.kakaoshopping.web.annotaion.LoginMember;
 import org.kakao.kakaoshopping.web.dto.cart.request.CartToOrder;
 import org.kakao.kakaoshopping.web.dto.cart.request.CreateCart;
 import org.kakao.kakaoshopping.web.dto.cart.request.EditCart;
@@ -41,7 +41,7 @@ public class CartController {
    */
   @PostMapping("/createCart")
   @ResponseBody
-  public ResponseEntity<Void> createCart(@RequestBody CreateCart createCart, @LoginUser LoggedInUser loggedInUser) {
+  public ResponseEntity<Void> createCart(@RequestBody CreateCart createCart, @LoginMember LoggedInUser loggedInUser) {
       cartService.addCart(createCart.toEntity(), createCart.getItemId(), loggedInUser.getUserId());
       return ResponseEntity.ok().build();
   }
@@ -56,7 +56,7 @@ public class CartController {
    * @return String
    */
   @GetMapping("/carts")
-  public String viewCarts(Model model, @LoginUser LoggedInUser loggedInUser) {
+  public String viewCarts(Model model, @LoginMember LoggedInUser loggedInUser) {
 	  List<Cart> carts = cartService.getItemsInCart(loggedInUser.getUserId());
 	  List<CartSimpleView> cartSimpleView = carts.stream().map(CartSimpleView::new)
 		  .toList();
@@ -89,7 +89,7 @@ public class CartController {
    * @return String
    */
   @PostMapping("/deleteCart")
-  public String deleteCart(@LoginUser LoggedInUser loggedInUser) {
+  public String deleteCart(@LoginMember LoggedInUser loggedInUser) {
       cartService.deleteCart(loggedInUser.getUserId());
       return "redirect:/user/carts";
   }
