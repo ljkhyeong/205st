@@ -24,7 +24,7 @@ public class OrderComplexView {
 
 	private Long id;
 	private Long userId;
-	private BigDecimal totalPrice;
+	private Integer totalPrice;
 	private String zipCode;
 	private String city;
 	private String street;
@@ -41,7 +41,9 @@ public class OrderComplexView {
 		this.street = order.getDelivery().getAddress().getStreet();
 		this.phoneNumber = order.getDelivery().getPhoneNumber().toStringPhone();
 		this.orderDate = order.getOrderDate();
-		this.totalPrice =order.getTotalPrice();
+		this.totalPrice = order.getOrderItems().stream()
+			.map(o -> o.getQuantity() * o.getPrice()).
+			reduce(0, Integer::sum);
 		this.orderItems = order.getOrderItems().stream()
 			.map(OrderItemSimpleView::new)
 			.toList();

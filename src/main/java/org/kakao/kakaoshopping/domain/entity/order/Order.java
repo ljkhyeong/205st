@@ -76,7 +76,9 @@ public class Order {
 	private User user;
 
 	@Builder
-	public Order(Long memberId, List<OrderItem> orderItems) {
+	public Order(Long memberId, Delivery delivery, Payment payment, List<OrderItem> orderItems) {
+		this.Delivery = delivery;
+		this.payment = payment;
 		this.orderItems = orderItems;
 	}
 
@@ -94,8 +96,10 @@ public class Order {
 		orderItems.add(orderItem);
 	}
 
+
 	public void edit(Order order) {
 		this.orderItems = order.getOrderItems();
 	}
+
 }
 

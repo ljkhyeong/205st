@@ -20,7 +20,7 @@ public class OrderItemSimpleView {
 	private Long itemId;
 	private String itemName;
 	private Integer quantity;
-	private BigDecimal price;
+	private Integer price;
 	private String imagePath;
 
 	public OrderItemSimpleView(OrderItem orderItem) {

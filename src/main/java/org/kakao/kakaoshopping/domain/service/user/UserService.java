@@ -10,7 +10,7 @@ import org.kakao.kakaoshopping.domain.entity.user.User;
 import org.kakao.kakaoshopping.domain.repository.user.UserRepository;
 import org.kakao.kakaoshopping.web.dto.user.login.LoggedInUser;
 import org.kakao.kakaoshopping.web.dto.user.login.LoginUser;
-import org.kakao.kakaoshopping.web.exception.UserNotFound;
+import org.kakao.kakaoshopping.web.exception.ItemNotFound;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +37,7 @@ public class UserService {
 
 	private User findById(Long userId) {
 		return userRepository.findById(userId)
-			.orElseThrow(() -> new UserNotFound(messageSource.getMessage("error.noUser", null, getDefault())));
+			.orElseThrow(() -> new ItemNotFound(messageSource.getMessage("error.noUser", null, getDefault())));
 	}
 
 	/**
